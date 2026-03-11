@@ -1,0 +1,8 @@
+export enum SuiteStatus {
+  LIVRE = 'LIVRE',
+  LOCADO = 'LOCADO',
+  BLOQUEADO = 'BLOQUEADO',
+  MANUTENCAO = 'MANUTENCAO',
+  FAXINA = 'FAXINA',
+  DEFEITO = 'DEFEITO',
+}
