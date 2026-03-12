@@ -1,6 +1,7 @@
-import { Get, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateStatusDto } from './dtos/update-status.dto';
 import { Suite } from './entities/suite.entity';
 
 @Injectable()
@@ -10,15 +11,34 @@ export class SuitesService {
     private readonly suiteRepository: Repository<Suite>,
   ) {}
 
-  @Get()
+  throwNotFoundError(id: number): void {
+    throw new NotFoundException(`Suite com ID ${id} não encontrada`);
+  }
+
   async findAll(): Promise<Suite[]> {
-    const suites = await this.suiteRepository.find();
+    const suites = await this.suiteRepository.find({
+      order: { id: 'ASC' },
+    });
 
     return suites;
   }
 
-  // @Patch()
-  // updateStatus(id: number): string {
-  //   return '';
-  // }
+  async updateStatus(
+    id: number,
+    updateStatusDto: UpdateStatusDto,
+  ): Promise<Suite> {
+    const suite = await this.suiteRepository.findOne({ where: { id } });
+
+    if (!suite) {
+      this.throwNotFoundError(id);
+    }
+
+    if (suite!.status === updateStatusDto.status) {
+      return suite!;
+    }
+
+    suite!.status = updateStatusDto.status;
+
+    return this.suiteRepository.save(suite!);
+  }
 }
