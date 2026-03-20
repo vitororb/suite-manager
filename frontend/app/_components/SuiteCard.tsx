@@ -2,9 +2,11 @@
 
 import { SuiteStatus } from "@/shared/enum/suite-status.enum";
 import { SuiteTypes } from "@/shared/enum/suite-types.enum";
-import { AlertTriangle, Key, MinusCircle, PlusCircle } from "lucide-react";
+import { AlertTriangle, Clock4, Key, PlusCircle, X } from "lucide-react";
+import { SuiteInfoRow } from "./SuiteInfoRow";
 
 type SuiteCardProps = {
+  number: string;
   category: SuiteTypes;
   status: SuiteStatus;
   lastCheckout: string;
@@ -13,6 +15,7 @@ type SuiteCardProps = {
 };
 
 export const SuiteCard = ({
+  number,
   category,
   status,
   lastCheckout,
@@ -20,55 +23,53 @@ export const SuiteCard = ({
   hasAlert,
 }: SuiteCardProps) => {
   return (
-    <div className="flex flex-col w-72 h-fit bg-white gap-3 rounded-lg border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200">
-      <div className="flex items-start justify-between w-full">
-        <div className="flex flex-col gap-2">
-          <div className="text-4xl font-bold text-gray-900">01</div>
-          <div className="text-xs font-semibold uppercase text-gray-500">
-            {category}
-          </div>
+    <div className="flex flex-col w-60 h-fit rounded-lg shadow-sm overflow-hidden">
+      {/* Header */}
+      <div className="flex items-start justify-between w-full p-4 bg-emerald-600">
+        {/* Number and Category */}
+        <div className="flex flex-col gap-2 text-white">
+          <div className="text-4xl font-bold">{number}</div>
+          <div className="text-xs font-semibold uppercase">{category}</div>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-emerald-50 text-emerald-600 text-base font-medium whitespace-nowrap">
-          <Key />
+        {/* Status */}
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-emerald-600 text-sm font-medium whitespace-nowrap">
+          <Key size={16} />
           <span>{status}</span>
         </div>
       </div>
 
-      <div className="h-px bg-gray-200 w-full" />
+      {/* Content */}
+      <div className="flex flex-col w-full bg-[#3D3D3D] gap-3 p-4">
+        <SuiteInfoRow
+          icon={<Clock4 size={16} />}
+          label="Último checkout"
+          time={lastCheckout}
+        />
 
-      <div className="flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          <span className="text-xs text-gray-500 font-medium">
-            Último checkout
-          </span>
-          <span className="text-sm text-gray-700 font-semibold">
-            {lastCheckout}
-          </span>
-        </div>
+        <SuiteInfoRow
+          icon={<Clock4 size={16} />}
+          label="Período"
+          time={period}
+        />
 
-        <div className="flex justify-between items-center">
-          <span className="text-xs text-gray-500 font-medium">Período</span>
-          <span className="text-sm text-gray-700 font-semibold">{period}</span>
-        </div>
-      </div>
+        <div className="w-full h-px bg-gray-400" />
 
-      {!hasAlert && (
-        <div className="flex text-blue-600 items-center gap-2 pt-3 border-t border-gray-200 cursor-pointer whitespace-nowrap">
-          <PlusCircle className="w-4 h-4 shrink-0" />
-          <p className="text-xs font-medium">Adicionar alerta</p>
-        </div>
-      )}
+        {!hasAlert && (
+          <button className="flex text-gray-400 items-center gap-1 cursor-pointer whitespace-nowrap w-fit h-8 hover:text-gray-200 hover:underline">
+            <PlusCircle size={16} className="shrink-0" />
+            <p className="text-xs font-medium">Adicionar alerta</p>
+          </button>
+        )}
 
-      {hasAlert && (
-        <div className="flex text-red-600 items-center justify-between pt-3 border-t border-gray-200 whitespace-nowrap">
-          <div className="flex items-center gap-2 animate-pulse">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
-            <p className="text-xs font-medium">{hasAlert}</p>
+        {hasAlert && (
+          <div className="flex text-red-400 items-center gap-2 whitespace-nowrap border border-red-600/30 rounded-md px-2 h-8 bg-red-600/20">
+            <AlertTriangle size={16} className="shrink-0" />
+            <p className="w-full text-xs font-medium">{hasAlert}</p>
+            <X size={12} className="shrink-0 cursor-pointer" />
           </div>
-          <MinusCircle className="w-4 h-4 shrink-0 cursor-pointer" />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
