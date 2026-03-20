@@ -10,3 +10,8 @@ export type Suite = {
   period: string;
   alert: string;
 };
+
+export type UpdateSuiteStatusInput = {
+  id: number;
+  status: SuiteStatus;
+};
