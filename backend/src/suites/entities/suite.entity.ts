@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { SuiteCategories } from '../enum/suite-categories.enum';
 import { SuiteStatus } from '../enum/suite-status.enum';
-import { SuiteTypes } from '../enum/suite-types.enum';
 
 @Entity()
 export class Suite {
@@ -10,9 +10,18 @@ export class Suite {
   @Column()
   number: string;
 
-  @Column()
+  @Column({ enum: SuiteCategories })
+  category: SuiteCategories;
+
+  @Column({ enum: SuiteStatus })
   status: SuiteStatus;
 
   @Column()
-  type: SuiteTypes;
+  lastCheckout: string;
+
+  @Column({ nullable: true })
+  period: string;
+
+  @Column({ nullable: true })
+  alert: string;
 }
