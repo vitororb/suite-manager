@@ -1,9 +1,9 @@
 import { API_URL } from "@/lib/config/api";
-import { Suite } from "@/shared/types/suite-type";
-import { useQuery } from "@tanstack/react-query";
+import { Suite, UpdateSuiteStatusInput } from "@/shared/types/suite-types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchSuites = async (): Promise<Suite[]> => {
+const getSuites = async (): Promise<Suite[]> => {
   const response = await axios.get<Suite[]>(`${API_URL}/suites`);
 
   if (!response.status.toString().startsWith("2")) {
@@ -13,9 +13,30 @@ const fetchSuites = async (): Promise<Suite[]> => {
   return response.data;
 };
 
-export const useSuites = () => {
+const updateSuiteStatus = async ({
+  id,
+  status,
+}: UpdateSuiteStatusInput): Promise<Suite> => {
+  const response = await axios.patch<Suite>(`${API_URL}/suites/${id}`, {
+    status,
+  });
+  return response.data;
+};
+
+export const useGetSuites = () => {
   return useQuery({
     queryKey: ["suites"],
-    queryFn: fetchSuites,
+    queryFn: getSuites,
+  });
+};
+
+export const useUpdateSuiteStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateSuiteStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["suites"] });
+    },
   });
 };

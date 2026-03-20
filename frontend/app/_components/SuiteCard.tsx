@@ -1,11 +1,28 @@
 "use client";
 
+import { useUpdateSuiteStatus } from "@/lib/api/suites/queries";
 import { SuiteCategories } from "@/shared/enum/suite-categories.enum";
 import { SuiteStatus } from "@/shared/enum/suite-status.enum";
-import { AlertTriangle, Clock4, Key, PlusCircle, X } from "lucide-react";
+import {
+  AlertTriangle,
+  Ban,
+  BrushCleaning,
+  Bubbles,
+  Clock4,
+  Key,
+  LoaderCircle,
+  LockKeyhole,
+  PlusCircle,
+  ScanEye,
+  Scroll,
+  Trash2,
+  Wrench,
+  X,
+} from "lucide-react";
 import { SuiteInfoRow } from "./SuiteInfoRow";
 
 type SuiteCardProps = {
+  id: number;
   number: string;
   category: SuiteCategories;
   status: SuiteStatus;
@@ -15,6 +32,7 @@ type SuiteCardProps = {
 };
 
 export const SuiteCard = ({
+  id,
   number,
   category,
   status,
@@ -22,10 +40,68 @@ export const SuiteCard = ({
   period,
   hasAlert,
 }: SuiteCardProps) => {
+  const { mutate: updateStatus, isPending } = useUpdateSuiteStatus();
+
+  const handleChangeStatus = () => {
+    updateStatus({ id, status: SuiteStatus.locado });
+  };
+
+  const getStatusStyle = () => {
+    switch (status) {
+      case SuiteStatus.livre:
+        return {
+          color: "bg-emerald-600 text-emerald-600",
+          icon: <Key size={16} />,
+        };
+      case SuiteStatus.bloqueado:
+        return {
+          color: "bg-gray-500 text-gray-500",
+          icon: <Ban size={16} />,
+        };
+      case SuiteStatus.conferencia:
+        return {
+          color: "bg-yellow-600 text-yellow-600",
+          icon: <ScanEye size={16} />,
+        };
+      case SuiteStatus.faxina:
+        return {
+          color: "bg-purple-800 text-purple-800",
+          icon: <Bubbles size={16} />,
+        };
+      case SuiteStatus.fechamento:
+        return {
+          color: "bg-amber-200 text-amber-200",
+          icon: <Scroll size={16} />,
+        };
+      case SuiteStatus.limpeza:
+        return {
+          color: "bg-blue-600 text-blue-600",
+          icon: <BrushCleaning size={16} />,
+        };
+      case SuiteStatus.locado:
+        return {
+          color: "bg-red-800 text-red-800",
+          icon: <LockKeyhole size={16} />,
+        };
+      case SuiteStatus.manutencao:
+        return {
+          color: "bg-gray-600 text-gray-600",
+          icon: <Wrench size={16} />,
+        };
+      case SuiteStatus.sujo:
+        return {
+          color: "bg-amber-900 text-amber-900",
+          icon: <Trash2 size={16} />,
+        };
+    }
+  };
+
   return (
     <div className="flex flex-col w-60 h-fit rounded-lg shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="flex items-start justify-between w-full p-4 bg-emerald-600">
+      <div
+        className={`flex items-start justify-between w-full p-4 ${getStatusStyle().color}`}
+      >
         {/* Number and Category */}
         <div className="flex flex-col gap-2 text-white">
           <div className="text-4xl font-bold">{number}</div>
@@ -33,10 +109,18 @@ export const SuiteCard = ({
         </div>
 
         {/* Status */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-emerald-600 text-sm font-medium whitespace-nowrap">
-          <Key size={16} />
-          <span>{status}</span>
-        </div>
+        <button
+          onClick={handleChangeStatus}
+          disabled={isPending}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-sm font-medium whitespace-nowrap hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isPending ? (
+            <LoaderCircle size={16} className="animate-spin" />
+          ) : (
+            getStatusStyle().icon
+          )}
+          <span>{isPending ? "Atualizando..." : status}</span>
+        </button>
       </div>
 
       {/* Content */}

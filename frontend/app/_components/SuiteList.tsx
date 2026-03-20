@@ -1,6 +1,6 @@
 "use client";
 
-import { useSuites } from "@/lib/api/suites/queries";
+import { useGetSuites } from "@/lib/api/suites/queries";
 import { QueryErrorState } from "@/shared/ui/QueryErrorState";
 import { QueryLoadState } from "@/shared/ui/QueryLoadState";
 import { SuiteCard } from "./SuiteCard";
@@ -8,7 +8,7 @@ import { SuiteCard } from "./SuiteCard";
 type Props = {};
 
 export const SuiteList = ({}: Props) => {
-  const { data: suites = [], isLoading, isError } = useSuites();
+  const { data: suites = [], isLoading, isError } = useGetSuites();
 
   if (isLoading) {
     return <QueryLoadState />;
@@ -23,6 +23,7 @@ export const SuiteList = ({}: Props) => {
       {suites.map((suite) => (
         <SuiteCard
           key={suite.id}
+          id={suite.id}
           number={suite.number}
           category={suite.category}
           status={suite.status}
