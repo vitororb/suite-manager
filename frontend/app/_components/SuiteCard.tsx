@@ -1,13 +1,13 @@
 "use client";
 
+import { SuiteCategories } from "@/shared/enum/suite-categories.enum";
 import { SuiteStatus } from "@/shared/enum/suite-status.enum";
-import { SuiteTypes } from "@/shared/enum/suite-types.enum";
 import { AlertTriangle, Clock4, Key, PlusCircle, X } from "lucide-react";
 import { SuiteInfoRow } from "./SuiteInfoRow";
 
 type SuiteCardProps = {
   number: string;
-  category: SuiteTypes;
+  category: SuiteCategories;
   status: SuiteStatus;
   lastCheckout: string;
   period: string;
