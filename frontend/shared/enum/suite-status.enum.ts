@@ -1,8 +1,11 @@
 export enum SuiteStatus {
-  LIVRE = "Livre",
-  LOCADO = "Locado",
-  BLOQUEADO = "Bloqueado",
-  MANUTENCAO = "Manutenção",
-  FAXINA = "Faxina",
-  DEFEITO = "Defeito",
+  livre = "Livre",
+  locado = "Locado",
+  fechamento = "Fechamento",
+  conferencia = "Conferência",
+  sujo = "Sujo",
+  limpeza = "Limpeza",
+  faxina = "Faxina",
+  manutencao = "Manutenção",
+  bloqueado = "Bloqueado",
 }
