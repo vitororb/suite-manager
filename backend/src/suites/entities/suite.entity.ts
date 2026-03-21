@@ -16,12 +16,12 @@ export class Suite {
   @Column({ enum: SuiteStatus })
   status: SuiteStatus;
 
-  @Column()
-  lastCheckout: string;
+  @Column({ nullable: true, type: 'timestamp', default: null })
+  checkIn: Date;
 
-  @Column({ nullable: true })
-  period: string;
+  @Column({ nullable: true, type: 'timestamp', default: null })
+  checkOut: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   alert: string;
 }
