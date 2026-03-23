@@ -11,14 +11,19 @@ import { AppService } from './app.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: process.env.DATABASE_TYPE as 'postgres',
+      type: 'postgres',
       host: process.env.DATABASE_HOST,
       port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,
       database: process.env.DATABASE_DATABASE,
       password: process.env.DATABASE_PASSWORD,
-      autoLoadEntities: Boolean(process.env.DATABASE_AUTOLOADENTITIES),
-      synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
+
+      autoLoadEntities: process.env.DATABASE_AUTOLOADENTITIES === 'true',
+      synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
+
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     SuitesModule,
   ],
