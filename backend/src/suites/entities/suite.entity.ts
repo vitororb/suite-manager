@@ -17,10 +17,10 @@ export class Suite {
   status: SuiteStatus;
 
   @Column({ nullable: true, type: 'timestamp', default: null })
-  checkIn: Date;
+  checkIn: Date | null;
 
   @Column({ nullable: true, type: 'timestamp', default: null })
-  checkOut: Date;
+  checkOut: Date | null;
 
   @Column({ nullable: true, default: null })
   alert: string;

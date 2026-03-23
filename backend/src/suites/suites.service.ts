@@ -38,7 +38,10 @@ export class SuitesService {
 
     if (suite!.status === updateStatusDto.status) return suite!;
 
-    if (isCheckingOut) suite.checkOut = new Date();
+    if (isCheckingOut) {
+      suite.checkOut = new Date();
+      suite.checkIn = null;
+    }
 
     if (isCheckingIn) suite!.checkIn = new Date();
 
