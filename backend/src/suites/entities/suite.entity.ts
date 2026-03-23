@@ -13,7 +13,7 @@ export class Suite {
   @Column({ enum: SuiteCategories })
   category: SuiteCategories;
 
-  @Column({ enum: SuiteStatus })
+  @Column({ enum: SuiteStatus, default: SuiteStatus.livre })
   status: SuiteStatus;
 
   @Column({ nullable: true, type: 'timestamp', default: null })
