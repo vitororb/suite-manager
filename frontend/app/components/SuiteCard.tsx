@@ -1,8 +1,5 @@
-"use client";
-
-import { useUpdateSuiteStatus } from "@/lib/api/suites/queries";
-import { SuiteCategories } from "@/shared/enum/suite-categories.enum";
-import { SuiteStatus } from "@/shared/enum/suite-status.enum";
+import { Suite, SuiteStatus } from "@/shared/types/suite-types";
+import { format } from "date-fns";
 import {
   AlertTriangle,
   Ban,
@@ -22,32 +19,13 @@ import {
 import { SuiteInfoRow } from "./SuiteInfoRow";
 
 type SuiteCardProps = {
-  id: number;
-  number: string;
-  category: SuiteCategories;
-  status: SuiteStatus;
-  lastCheckout: string;
-  period: string;
-  hasAlert?: string;
+  suite: Suite;
+  onOpen: (suite: Suite) => void;
 };
 
-export const SuiteCard = ({
-  id,
-  number,
-  category,
-  status,
-  lastCheckout,
-  period,
-  hasAlert,
-}: SuiteCardProps) => {
-  const { mutate: updateStatus, isPending } = useUpdateSuiteStatus();
-
-  const handleChangeStatus = () => {
-    updateStatus({ id, status: SuiteStatus.locado });
-  };
-
+export const SuiteCard = ({ suite, onOpen }: SuiteCardProps) => {
   const getStatusStyle = () => {
-    switch (status) {
+    switch (suite.status) {
       case SuiteStatus.livre:
         return {
           color: "bg-emerald-600 text-emerald-600",
@@ -104,22 +82,23 @@ export const SuiteCard = ({
       >
         {/* Number and Category */}
         <div className="flex flex-col gap-2 text-white">
-          <div className="text-4xl font-bold">{number}</div>
-          <div className="text-xs font-semibold uppercase">{category}</div>
+          <div className="text-4xl font-bold">{suite.number}</div>
+          <div className="text-xs font-semibold uppercase">
+            {suite.category}
+          </div>
         </div>
 
         {/* Status */}
         <button
-          onClick={handleChangeStatus}
-          disabled={isPending}
+          onClick={() => onOpen(suite)}
           className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-sm font-medium whitespace-nowrap hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isPending ? (
+          {false ? (
             <LoaderCircle size={16} className="animate-spin" />
           ) : (
             getStatusStyle().icon
           )}
-          <span>{isPending ? "Atualizando..." : status}</span>
+          <span>{false ? "Atualizando..." : suite.status}</span>
         </button>
       </div>
 
@@ -128,28 +107,30 @@ export const SuiteCard = ({
         <SuiteInfoRow
           icon={<Clock4 size={16} />}
           label="Último checkout"
-          time={lastCheckout}
+          time={format(suite.checkOut, "HH:mm")}
         />
 
         <SuiteInfoRow
           icon={<Clock4 size={16} />}
           label="Período"
-          time={period}
+          time={format(suite.checkIn, "HH:mm")}
         />
 
         <div className="w-full h-px bg-gray-400" />
 
-        {!hasAlert && (
+        {!suite.alert && (
           <button className="flex text-gray-400 items-center gap-1 cursor-pointer whitespace-nowrap w-fit h-8 hover:text-gray-200 hover:underline">
             <PlusCircle size={16} className="shrink-0" />
             <p className="text-xs font-medium">Adicionar alerta</p>
           </button>
         )}
 
-        {hasAlert && (
+        {suite.alert && (
           <div className="flex text-red-400 items-center gap-2 whitespace-nowrap border border-red-600/30 rounded-md px-2 h-8 bg-red-600/20">
             <AlertTriangle size={16} className="shrink-0" />
-            <p className="w-full text-xs font-medium">{hasAlert}</p>
+            <p className="w-full text-xs font-medium overflow-hidden">
+              {suite.alert}
+            </p>
             <X size={12} className="shrink-0 cursor-pointer" />
           </div>
         )}
