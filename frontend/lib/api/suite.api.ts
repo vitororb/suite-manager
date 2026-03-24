@@ -1,5 +1,5 @@
-import { API_URL } from "@/lib/config/api";
-import { Suite, UpdateSuiteStatusInput } from "@/shared/types/suite-types";
+import { API_URL } from "@/lib/api.config";
+import { Suite, UpdateSuiteStatusDto } from "@/shared/types/suite-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ const getSuites = async (): Promise<Suite[]> => {
 const updateSuiteStatus = async ({
   id,
   status,
-}: UpdateSuiteStatusInput): Promise<Suite> => {
+}: UpdateSuiteStatusDto): Promise<Suite> => {
   const response = await axios.patch<Suite>(`${API_URL}/suites/${id}`, {
     status,
   });
