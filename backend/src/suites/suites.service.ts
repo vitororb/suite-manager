@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateAlertDto } from './dtos/update-alert.dto';
 import { UpdateStatusDto } from './dtos/update-status.dto';
 import { Suite } from './entities/suite.entity';
 import { SuiteStatus } from './enum/suite-status.enum';
@@ -46,6 +47,19 @@ export class SuitesService {
     if (isCheckingIn) suite!.checkIn = new Date();
 
     suite!.status = updateStatusDto.status;
+
+    return this.suiteRepository.save(suite!);
+  }
+
+  async updateAlert(
+    id: number,
+    updateAlertDto: UpdateAlertDto,
+  ): Promise<Suite> {
+    const suite = await this.suiteRepository.findOne({ where: { id } });
+
+    if (!suite) this.throwNotFoundError(id);
+
+    suite!.alert = updateAlertDto.alert;
 
     return this.suiteRepository.save(suite!);
   }
