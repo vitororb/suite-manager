@@ -1,17 +1,32 @@
-import { SuiteCategories } from "../enum/suite-categories.enum";
-import { SuiteStatus } from "../enum/suite-status.enum";
-
 export type Suite = {
   id: number;
   number: string;
   category: SuiteCategories;
   status: SuiteStatus;
-  lastCheckout: string;
-  period: string;
+  checkOut: string;
+  checkIn: string;
   alert: string;
 };
 
-export type UpdateSuiteStatusInput = {
+export enum SuiteStatus {
+  livre = "Livre",
+  locado = "Locado",
+  fechamento = "Fechamento",
+  conferencia = "Conferência",
+  sujo = "Sujo",
+  limpeza = "Limpeza",
+  faxina = "Faxina",
+  manutencao = "Manutenção",
+  bloqueado = "Bloqueado",
+}
+
+export enum SuiteCategories {
+  luxo = "Luxo",
+  premium = "Premium",
+  master = "Master",
+}
+
+export type UpdateSuiteStatusDto = {
   id: number;
   status: SuiteStatus;
 };
