@@ -13,7 +13,7 @@ export class SuitesController {
     return this.suitesService.findAll();
   }
 
-  @Patch(':id')
+  @Patch(':id/status')
   updateStatus(
     @Param('id') id: string,
     @Body() updateStatusDto: UpdateStatusDto,
@@ -21,7 +21,7 @@ export class SuitesController {
     return this.suitesService.updateStatus(+id, updateStatusDto);
   }
 
-  @Patch(':id')
+  @Patch(':id/alert')
   updateAlert(
     @Param('id') id: string,
     @Body() updateAlertDto: UpdateAlertDto,
