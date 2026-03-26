@@ -30,3 +30,8 @@ export type UpdateSuiteStatusDto = {
   id: number;
   status: SuiteStatus;
 };
+
+export type UpdateSuiteAlertDto = {
+  id: number;
+  alert: string;
+};

@@ -1,5 +1,9 @@
 import { API_URL } from "@/lib/api.config";
-import { Suite, UpdateSuiteStatusDto } from "@/shared/types/suite-types";
+import {
+  Suite,
+  UpdateSuiteAlertDto,
+  UpdateSuiteStatusDto,
+} from "@/shared/types/suite-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -17,8 +21,18 @@ const updateSuiteStatus = async ({
   id,
   status,
 }: UpdateSuiteStatusDto): Promise<Suite> => {
-  const response = await axios.patch<Suite>(`${API_URL}/suites/${id}`, {
+  const response = await axios.patch<Suite>(`${API_URL}/suites/${id}/status`, {
     status,
+  });
+  return response.data;
+};
+
+const updateSuiteAlert = async ({
+  id,
+  alert,
+}: UpdateSuiteAlertDto): Promise<Suite> => {
+  const response = await axios.patch<Suite>(`${API_URL}/suites/${id}/alert`, {
+    alert,
   });
   return response.data;
 };
@@ -35,6 +49,17 @@ export const useUpdateSuiteStatus = () => {
 
   return useMutation({
     mutationFn: updateSuiteStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["suites"] });
+    },
+  });
+};
+
+export const useUpdateSuiteAlert = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateSuiteAlert,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["suites"] });
     },
