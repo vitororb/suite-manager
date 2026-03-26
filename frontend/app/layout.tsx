@@ -1,7 +1,4 @@
 import { Providers } from "@/lib/providers";
-import { Footer } from "@/shared/ui/Footer";
-import { Navbar } from "@/shared/ui/Navbar";
-import { Sidebar } from "@/shared/ui/Sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -31,21 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <div className="flex flex-col w-screen h-screen">
-            <Navbar />
-
-            <div className="flex flex-1 pr-2">
-              <Sidebar />
-
-              <main className="flex-1 bg-[#191A1C] rounded-xl p-4">
-                {children}
-              </main>
-            </div>
-
-            <Footer />
-          </div>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

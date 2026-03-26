@@ -11,7 +11,7 @@ export const SuiteInfoRow = ({ icon, label, time }: SuiteInfoRowProps) => {
         {icon}
         <span>{label}</span>
       </div>
-      <span className="text-sm text-gray-100">{time || "-- : --"}</span>
+      <span className="text-sm text-gray-100">{time}</span>
     </div>
   );
 };
