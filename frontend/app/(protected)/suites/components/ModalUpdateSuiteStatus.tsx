@@ -1,4 +1,5 @@
 import { Suite, SuiteStatus } from "@/shared/types/suite-types";
+import { Button } from "@/shared/ui/Button";
 import { Modal } from "@/shared/ui/Modal";
 import {
   Ban,
@@ -116,19 +117,17 @@ export const ModalUpdateSuiteStatus = ({
       </div>
 
       <div className="flex w-full justify-end items-center gap-2">
-        <button
-          onClick={onClose}
-          className="hover:cursor-pointer text-xs border px-3 py-1.5 rounded-lg border-gray-600/30 hover:bg-gray-400/10"
-        >
+        <Button variant="secondary" onClick={onClose}>
           Cancelar
-        </button>
-        <button
-          disabled={isUpdating || !selectedStatus}
+        </Button>
+
+        <Button
+          variant="primary"
           onClick={() => onUpdate(selectedStatus!)}
-          className="flex gap-2 items-center hover:cursor-pointer text-xs px-3 py-1.5 rounded-lg bg-white text-black hover:shadow-lg disabled:opacity-50 disabled:hover:shadow-none disabled:cursor-not-allowed transition-shadow"
+          disabled={isUpdating || !selectedStatus}
         >
           {isUpdating ? "Atualizando..." : "Atualizar"}
-        </button>
+        </Button>
       </div>
     </Modal>
   );
