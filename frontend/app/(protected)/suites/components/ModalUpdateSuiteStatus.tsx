@@ -92,7 +92,7 @@ export const ModalUpdateSuiteStatus = ({
 
   return (
     <Modal
-      size="sm"
+      size="md"
       title="Alterar Status"
       subtitle={`Suíte ${suite?.number}`}
       onClose={onClose}

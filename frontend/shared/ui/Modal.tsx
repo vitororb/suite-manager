@@ -12,9 +12,9 @@ type ModalProps = {
 };
 
 const sizeMap = {
-  sm: "w-1/4",
-  md: "w-1/2",
-  lg: "w-3/4",
+  sm: "w-56",
+  md: "w-80",
+  lg: "w-[32rem]",
 };
 
 export const Modal = ({
