@@ -21,7 +21,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`${variantMap[variant]} text-sm px-3 py-1.5 rounded-lg hover:cursor-pointer disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed transition-colors`}
+      className={`${variantMap[variant]} text-xs px-3 py-1.5 rounded-lg hover:cursor-pointer disabled:opacity-60 disabled:pointer-events-none disabled:cursor-not-allowed transition-colors`}
       {...rest}
     >
       {children}
