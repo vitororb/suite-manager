@@ -7,6 +7,7 @@ import {
   Bubbles,
   Clock4,
   Key,
+  LoaderCircle,
   LockKeyhole,
   PlusCircle,
   ScanEye,
@@ -19,8 +20,10 @@ import { SuiteInfoRow } from "./SuiteInfoRow";
 
 type SuiteCardProps = {
   suite: Suite;
+  isUpdatingAlert?: boolean;
   onOpenStatusModal: (suite: Suite) => void;
   onAddAlert: (suite: Suite) => void;
+  onRemoveAlert: (suite: Suite) => void;
 };
 
 const statusMap = {
@@ -73,8 +76,10 @@ const statusMap = {
 
 export const SuiteCard = ({
   suite,
+  isUpdatingAlert = false,
   onOpenStatusModal,
   onAddAlert,
+  onRemoveAlert,
 }: SuiteCardProps) => {
   const statusStyle = statusMap[suite.status] ?? {
     label: "Desconhecido",
@@ -138,7 +143,15 @@ export const SuiteCard = ({
             <p className="w-full text-xs font-medium overflow-hidden">
               {suite.alert}
             </p>
-            <X size={12} className="shrink-0 cursor-pointer" />
+            {isUpdatingAlert ? (
+              <LoaderCircle size={12} className="animate-spin shrink-0" />
+            ) : (
+              <X
+                size={12}
+                className="shrink-0 cursor-pointer"
+                onClick={() => onRemoveAlert(suite)}
+              />
+            )}
           </div>
         )}
       </div>

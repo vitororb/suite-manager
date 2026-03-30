@@ -1,6 +1,10 @@
 "use client";
 
-import { useGetSuites, useUpdateSuiteStatus } from "@/lib/api/suite.api";
+import {
+  useGetSuites,
+  useUpdateSuiteAlert,
+  useUpdateSuiteStatus,
+} from "@/lib/api/suite.api";
 import { Suite, SuiteStatus } from "@/shared/types/suite-types";
 import { QueryErrorState } from "@/shared/ui/QueryErrorState";
 import { QueryLoadState } from "@/shared/ui/QueryLoadState";
@@ -11,8 +15,10 @@ import { SuiteCard } from "./components/SuiteCard";
 
 export default function Suites() {
   const { data: suites = [], isLoading, isError } = useGetSuites();
-  const { mutate: updateSuiteStatus, isPending } = useUpdateSuiteStatus();
-  // const { mutate: updateSuiteAlert, isPending } = useUpdateSuiteAlert();
+  const { mutate: updateSuiteStatus, isPending: isUpdatingStatus } =
+    useUpdateSuiteStatus();
+  const { mutate: updateSuiteAlert, isPending: isUpdatingAlert } =
+    useUpdateSuiteAlert();
 
   const [selectedSuite, setSelectedSuite] = useState<Suite | null>(null);
   const [openedModal, setOpenedModal] = useState<"status" | "alert" | null>(
@@ -48,6 +54,20 @@ export default function Suites() {
     );
   };
 
+  const handleUpdateAlert = (suite: Suite, alert: string) => {
+    if (!suite) return;
+
+    updateSuiteAlert(
+      {
+        id: suite.id,
+        alert,
+      },
+      {
+        onSuccess: handleCloseModal,
+      },
+    );
+  };
+
   if (isLoading) {
     return <QueryLoadState />;
   }
@@ -65,6 +85,8 @@ export default function Suites() {
             suite={suite}
             onOpenStatusModal={() => handleOpenStatusModal(suite)}
             onAddAlert={() => handleOpenAlertModal(suite)}
+            onRemoveAlert={(suite) => handleUpdateAlert(suite, "")}
+            isUpdatingAlert={isUpdatingAlert}
           />
         ))}
       </div>
@@ -74,13 +96,15 @@ export default function Suites() {
         suite={selectedSuite!}
         onUpdate={handleUpdateStatus}
         onClose={handleCloseModal}
-        isUpdating={isPending}
+        isUpdating={isUpdatingStatus}
       />
 
       <ModalUpdateSuiteAlert
         isOpen={openedModal === "alert"}
         suite={selectedSuite!}
         onClose={handleCloseModal}
+        onSubmit={(alert) => handleUpdateAlert(selectedSuite!, alert)}
+        isUpdating={isUpdatingAlert}
       />
     </>
   );
