@@ -22,6 +22,6 @@ export class Suite {
   @Column({ nullable: true, type: 'timestamp', default: null })
   checkOut: Date | null;
 
-  @Column({ nullable: true, default: null })
+  @Column({ nullable: true, default: '' })
   alert: string;
 }
