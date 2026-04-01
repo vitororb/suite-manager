@@ -1,6 +1,6 @@
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
-import { Eye, EyeOff, Lock, LogIn, Mail } from "lucide-react";
+import { Eye, EyeOff, Lock, LogIn, User } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
@@ -23,25 +23,23 @@ export const LoginForm = () => {
 
       <div className="flex flex-col gap-2 w-full">
         <Input
-          type="email"
-          leftIcon={<Mail size={16} />}
-          label="Email"
-          placeholder="Digite seu email"
+          type="text"
+          leftIcon={<User size={16} />}
+          placeholder="Digite seu Usuário"
         />
         <Input
           type={showPassword ? "text" : "password"}
           leftIcon={<Lock size={16} />}
-          label="Senha"
-          placeholder="Digite sua senha"
+          placeholder="Digite sua Senha"
           rightIcon={
             showPassword ? (
-              <EyeOff
+              <Eye
                 size={16}
                 onClick={() => setShowPassword(!showPassword)}
                 className="cursor-pointer"
               />
             ) : (
-              <Eye
+              <EyeOff
                 size={16}
                 onClick={() => setShowPassword(!showPassword)}
                 className="cursor-pointer"
