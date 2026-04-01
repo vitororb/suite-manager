@@ -20,7 +20,7 @@ const menuItems = [
   {
     icon: <Package size={20} />,
     label: "Estoque",
-    route: "/",
+    route: "/stock",
   },
   {
     icon: <UserCog size={20} />,

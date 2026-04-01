@@ -1,13 +1,13 @@
 "use client";
 
+import { QueryErrorState } from "@/components/QueryErrorState";
+import { QueryLoadState } from "@/components/QueryLoadState";
 import {
   useGetSuites,
   useUpdateSuiteAlert,
   useUpdateSuiteStatus,
-} from "@/lib/api/suite.api";
-import { Suite, SuiteStatus } from "@/shared/types/suite-types";
-import { QueryErrorState } from "@/shared/ui/QueryErrorState";
-import { QueryLoadState } from "@/shared/ui/QueryLoadState";
+} from "@/services/suite.service";
+import { Suite, SuiteStatus } from "@/types/suite-types";
 import { useState } from "react";
 import { ModalUpdateSuiteAlert } from "./components/ModalUpdateSuiteAlert";
 import { ModalUpdateSuiteStatus } from "./components/ModalUpdateSuiteStatus";

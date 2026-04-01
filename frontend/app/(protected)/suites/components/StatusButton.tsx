@@ -1,4 +1,4 @@
-import { SuiteStatus } from "@/shared/types/suite-types";
+import { SuiteStatus } from "@/types/suite-types";
 
 type StatusButtonProps = {
   label: SuiteStatus;

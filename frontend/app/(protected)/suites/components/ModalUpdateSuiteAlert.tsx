@@ -1,7 +1,7 @@
-import { Suite } from "@/shared/types/suite-types";
-import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
-import { Modal } from "@/shared/ui/Modal";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Modal } from "@/components/Modal";
+import { Suite } from "@/types/suite-types";
 import { useState } from "react";
 
 type ModalUpdateSuiteAlertProps = {

@@ -1,9 +1,9 @@
-import { API_URL } from "@/lib/api.config";
+import { API_URL } from "@/services/config/api.config";
 import {
   Suite,
   UpdateSuiteAlertDto,
   UpdateSuiteStatusDto,
-} from "@/shared/types/suite-types";
+} from "@/types/suite-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 

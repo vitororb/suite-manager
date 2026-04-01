@@ -1,6 +1,6 @@
-import { Suite, SuiteStatus } from "@/shared/types/suite-types";
-import { Button } from "@/shared/ui/Button";
-import { Modal } from "@/shared/ui/Modal";
+import { Button } from "@/components/Button";
+import { Modal } from "@/components/Modal";
+import { Suite, SuiteStatus } from "@/types/suite-types";
 import {
   Ban,
   BrushCleaning,
