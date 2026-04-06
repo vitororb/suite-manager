@@ -1,4 +1,4 @@
-import { Providers } from "@/lib/providers";
+import { Providers } from "@/services/config/providers";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -28,7 +28,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="flex items-center justify-center w-screen h-screen">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

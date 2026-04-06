@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Modal } from "@/components/Modal";
-import { Suite } from "@/types/suite-types";
+import { Suite } from "@/types/suite.types";
 import { useState } from "react";
 
 type ModalUpdateSuiteAlertProps = {

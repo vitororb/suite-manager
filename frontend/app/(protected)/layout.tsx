@@ -1,12 +1,19 @@
-import { Footer } from "@/shared/ui/Footer";
-import { Navbar } from "@/shared/ui/Navbar";
-import { Sidebar } from "@/shared/ui/Sidebar";
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
+import { Sidebar } from "@/components/Sidebar";
+import { redirect } from "next/navigation";
 
 export default function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthenticated = true; // Replace with your actual authentication logic
+
+  if (!isAuthenticated) {
+    redirect("/login");
+  }
+
   return (
     <div className="flex flex-col w-screen h-screen">
       <Navbar />

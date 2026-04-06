@@ -3,7 +3,7 @@ import {
   Suite,
   UpdateSuiteAlertDto,
   UpdateSuiteStatusDto,
-} from "@/types/suite-types";
+} from "@/types/suite.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 

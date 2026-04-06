@@ -1,4 +1,4 @@
-import { Suite, SuiteStatus } from "@/types/suite-types";
+import { Suite, SuiteStatus } from "@/types/suite.types";
 import { format } from "date-fns";
 import {
   AlertTriangle,

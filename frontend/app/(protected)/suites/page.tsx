@@ -7,7 +7,7 @@ import {
   useUpdateSuiteAlert,
   useUpdateSuiteStatus,
 } from "@/services/suite.service";
-import { Suite, SuiteStatus } from "@/types/suite-types";
+import { Suite, SuiteStatus } from "@/types/suite.types";
 import { useState } from "react";
 import { ModalUpdateSuiteAlert } from "./components/ModalUpdateSuiteAlert";
 import { ModalUpdateSuiteStatus } from "./components/ModalUpdateSuiteStatus";
