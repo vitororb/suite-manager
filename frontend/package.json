@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.91.2",
+    "@tanstack/react-table": "^8.21.3",
     "axios": "^1.13.6",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.577.0",
