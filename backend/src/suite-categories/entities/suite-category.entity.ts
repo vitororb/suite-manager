@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class SuiteCategorie {
+export class SuiteCategory {
   @PrimaryGeneratedColumn()
   id!: number;
 

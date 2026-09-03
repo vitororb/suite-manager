@@ -5,23 +5,23 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CategorieFormDto } from './dtos/categorie-form.dto';
-import { SuiteCategorie } from './entities/suite-categorie.entity';
+import { CategoryFormDto } from './dtos/category-form.dto';
+import { SuiteCategory } from './entities/suite-category.entity';
 
 @Injectable()
 export class SuiteCategoriesService {
   constructor(
-    @InjectRepository(SuiteCategorie)
-    private readonly stocksRepository: Repository<SuiteCategorie>,
+    @InjectRepository(SuiteCategory)
+    private readonly stocksRepository: Repository<SuiteCategory>,
   ) {}
 
   throwNotFoundError(id: number): void {
     throw new NotFoundException(`Categoria com ID ${id} não encontrada`);
   }
 
-  async create(categorieFormDto: CategorieFormDto): Promise<CategorieFormDto> {
+  async create(CategoryFormDto: CategoryFormDto): Promise<CategoryFormDto> {
     try {
-      const newCategorie = this.stocksRepository.create(categorieFormDto);
+      const newCategorie = this.stocksRepository.create(CategoryFormDto);
 
       await this.stocksRepository.save(newCategorie);
 
@@ -29,7 +29,7 @@ export class SuiteCategoriesService {
     } catch (error: any) {
       if (error.code === '23505') {
         throw new ConflictException(
-          `Categoria com nome ${categorieFormDto.name} já existe`,
+          `Categoria com nome ${CategoryFormDto.name} já existe`,
         );
       }
 
@@ -37,7 +37,7 @@ export class SuiteCategoriesService {
     }
   }
 
-  async findAll(): Promise<SuiteCategorie[]> {
+  async findAll(): Promise<SuiteCategory[]> {
     const categories = await this.stocksRepository.find({
       order: { name: 'ASC' },
     });
@@ -45,7 +45,7 @@ export class SuiteCategoriesService {
     return categories;
   }
 
-  async findOne(id: number): Promise<SuiteCategorie> {
+  async findOne(id: number): Promise<SuiteCategory> {
     const categorie = await this.stocksRepository.findOneBy({ id });
 
     if (!categorie) this.throwNotFoundError(id);
@@ -55,12 +55,12 @@ export class SuiteCategoriesService {
 
   async update(
     id: number,
-    categorieFormDto: CategorieFormDto,
-  ): Promise<SuiteCategorie> {
+    CategoryFormDto: CategoryFormDto,
+  ): Promise<SuiteCategory> {
     try {
       const updatedCategorie = await this.stocksRepository.preload({
         id,
-        ...categorieFormDto,
+        ...CategoryFormDto,
       });
 
       if (!updatedCategorie) this.throwNotFoundError(id);
@@ -69,7 +69,7 @@ export class SuiteCategoriesService {
     } catch (error: any) {
       if (error.code === '23505') {
         throw new ConflictException(
-          `Categoria com nome ${categorieFormDto.name} já existe`,
+          `Categoria com nome ${CategoryFormDto.name} já existe`,
         );
       }
 
@@ -77,7 +77,7 @@ export class SuiteCategoriesService {
     }
   }
 
-  async remove(id: number): Promise<SuiteCategorie> {
+  async remove(id: number): Promise<SuiteCategory> {
     const categorie = await this.stocksRepository.findOneBy({ id });
 
     if (!categorie) this.throwNotFoundError(id);

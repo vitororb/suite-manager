@@ -7,8 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CategorieFormDto } from './dtos/categorie-form.dto';
-import { SuiteCategorie } from './entities/suite-categorie.entity';
+import { CategoryFormDto } from './dtos/category-form.dto';
+import { SuiteCategory } from './entities/suite-category.entity';
 import { SuiteCategoriesService } from './suite-categories.service';
 
 @Controller('suite-categories')
@@ -18,25 +18,26 @@ export class SuiteCategoriesController {
   ) {}
 
   @Post()
-  create(
-    @Body() categorieFormDto: CategorieFormDto,
-  ): Promise<CategorieFormDto> {
-    return this.suiteCategoriesService.create(categorieFormDto);
+  create(@Body() categoryFormDto: CategoryFormDto): Promise<CategoryFormDto> {
+    return this.suiteCategoriesService.create(categoryFormDto);
   }
 
   @Get()
-  findAll(): Promise<SuiteCategorie[]> {
+  findAll(): Promise<SuiteCategory[]> {
     return this.suiteCategoriesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<SuiteCategorie> {
+  findOne(@Param('id') id: number): Promise<SuiteCategory> {
     return this.suiteCategoriesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() categorieFormDto: CategorieFormDto) {
-    return this.suiteCategoriesService.update(+id, categorieFormDto);
+  update(
+    @Param('id') id: number,
+    @Body() categoryFormDto: CategoryFormDto,
+  ): Promise<SuiteCategory> {
+    return this.suiteCategoriesService.update(+id, categoryFormDto);
   }
 
   @Delete(':id')
