@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StocksModule } from '../stocks/stocks.module';
+import { StocksModule } from '../products/stocks.module';
+import { SuiteCategoriesModule } from '../suite-categories/suite-categories.module';
 import { SuitesModule } from '../suites/suites.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -28,6 +29,7 @@ import { AppService } from './app.service';
     }),
     SuitesModule,
     StocksModule,
+    SuiteCategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
