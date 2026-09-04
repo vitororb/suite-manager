@@ -12,7 +12,7 @@ export class SuiteCategory {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, unique: true })
   name!: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
