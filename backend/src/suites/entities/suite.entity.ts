@@ -1,27 +1,46 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { SuiteCategories } from '../enum/suite-categories.enum';
-import { SuiteStatus } from '../enum/suite-status.enum';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { SuiteCategory } from '../../suite-categories/entities/suite-category.entity';
+import { SuiteStatus } from '../enums/suite-status.enum';
 
 @Entity()
 export class Suite {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
-  @Column()
-  number: string;
+  @Column({ type: 'int', unique: true })
+  number!: number;
 
-  @Column({ enum: SuiteCategories })
-  category: SuiteCategories;
+  @ManyToOne(() => SuiteCategory, (category) => category.name)
+  @JoinColumn({ name: 'category_id' })
+  category!: SuiteCategory;
 
-  @Column({ enum: SuiteStatus, default: SuiteStatus.livre })
-  status: SuiteStatus;
-
-  @Column({ nullable: true, type: 'timestamp', default: null })
-  checkIn: Date | null;
+  @Column({ enum: SuiteStatus, default: SuiteStatus.LIVRE })
+  status!: SuiteStatus;
 
   @Column({ nullable: true, type: 'timestamp', default: null })
-  checkOut: Date | null;
+  checkIn!: Date | null;
+
+  @Column({ nullable: true, type: 'timestamp', default: null })
+  checkOut!: Date | null;
 
   @Column({ nullable: true, default: '' })
-  alert: string;
+  alert!: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  deletedAt?: Date;
 }
