@@ -3,44 +3,48 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProductType } from '../../product-types/entities/product-type.entity';
 
 @Entity()
-export class Stock {
+export class Product {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'varchar', length: 50, unique: true })
-  code: string;
+  code!: string;
 
   @Column({ type: 'varchar', length: 150 })
-  productName: string;
+  productName!: string;
 
   @Column({ type: 'varchar', length: 100 })
-  brand: string;
+  brand!: string;
 
-  @Column({ type: 'varchar', length: 80 })
-  productType: string;
+  @ManyToOne(() => ProductType, (type) => type.name)
+  @JoinColumn({ name: 'type_id' })
+  productType!: ProductType;
 
   @Column({ type: 'int', default: 0 })
-  quantity: number;
+  quantity!: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  costPrice: number;
+  costPrice!: number;
 
   @Column({ type: 'varchar', length: 50 })
-  unitType: string;
+  unitType!: string;
 
   @Column({ type: 'int', default: 0 })
-  minimumStock: number;
+  minimumStock!: number;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;

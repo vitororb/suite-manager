@@ -1,4 +1,5 @@
 import {
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -6,8 +7,9 @@ import {
   Max,
   Min,
 } from 'class-validator';
+import { ProductType } from '../../product-types/entities/product-type.entity';
 
-export class StockFormDto {
+export class ProductFormDto {
   @IsNotEmpty({ message: 'Código é obrigatório' })
   @IsString()
   @Length(1, 50, { message: 'Código deve ter entre 1 e 50 caracteres' })
@@ -24,9 +26,8 @@ export class StockFormDto {
   brand!: string;
 
   @IsNotEmpty()
-  @IsString()
-  @Length(1, 80)
-  productType!: string;
+  @IsEnum(ProductType, { message: 'Tipo de produto inválido' })
+  productType!: ProductType;
 
   @IsNotEmpty({ message: 'Quantidade é obrigatória' })
   @IsNumber()

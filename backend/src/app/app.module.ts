@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StocksModule } from '../products/stocks.module';
+import { ProductTypesModule } from '../product-types/product-types.module';
+import { ProductsModule } from '../products/products.module';
 import { SuiteCategoriesModule } from '../suite-categories/suite-categories.module';
 import { SuitesModule } from '../suites/suites.module';
 import { AppController } from './app.controller';
@@ -27,9 +28,10 @@ import { AppService } from './app.service';
         rejectUnauthorized: false,
       },
     }),
-    SuitesModule,
-    StocksModule,
     SuiteCategoriesModule,
+    SuitesModule,
+    ProductTypesModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
