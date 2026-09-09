@@ -19,9 +19,9 @@ export class SuiteCategoriesService {
     throw new NotFoundException(`Categoria com ID ${id} não encontrada`);
   }
 
-  async create(CategoryFormDto: CategoryFormDto): Promise<CategoryFormDto> {
+  async create(categoryFormDto: CategoryFormDto): Promise<SuiteCategory> {
     try {
-      const newCategorie = this.stocksRepository.create(CategoryFormDto);
+      const newCategorie = this.stocksRepository.create(categoryFormDto);
 
       await this.stocksRepository.save(newCategorie);
 
@@ -29,7 +29,7 @@ export class SuiteCategoriesService {
     } catch (error: any) {
       if (error.code === '23505') {
         throw new ConflictException(
-          `Categoria com nome ${CategoryFormDto.name} já existe`,
+          `Categoria com nome ${categoryFormDto.name} já existe`,
         );
       }
 
@@ -55,12 +55,12 @@ export class SuiteCategoriesService {
 
   async update(
     id: number,
-    CategoryFormDto: CategoryFormDto,
+    categoryFormDto: CategoryFormDto,
   ): Promise<SuiteCategory> {
     try {
       const updatedCategorie = await this.stocksRepository.preload({
         id,
-        ...CategoryFormDto,
+        ...categoryFormDto,
       });
 
       if (!updatedCategorie) this.throwNotFoundError(id);
@@ -69,7 +69,7 @@ export class SuiteCategoriesService {
     } catch (error: any) {
       if (error.code === '23505') {
         throw new ConflictException(
-          `Categoria com nome ${CategoryFormDto.name} já existe`,
+          `Categoria com nome ${categoryFormDto.name} já existe`,
         );
       }
 

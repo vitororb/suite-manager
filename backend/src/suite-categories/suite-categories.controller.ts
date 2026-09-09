@@ -18,7 +18,7 @@ export class SuiteCategoriesController {
   ) {}
 
   @Post()
-  create(@Body() categoryFormDto: CategoryFormDto): Promise<CategoryFormDto> {
+  create(@Body() categoryFormDto: CategoryFormDto): Promise<SuiteCategory> {
     return this.suiteCategoriesService.create(categoryFormDto);
   }
 
@@ -41,7 +41,7 @@ export class SuiteCategoriesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: number): Promise<SuiteCategory> {
     return this.suiteCategoriesService.remove(+id);
   }
 }
