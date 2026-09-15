@@ -5,6 +5,7 @@ import { ProductTypesModule } from '../product-types/product-types.module';
 import { ProductsModule } from '../products/products.module';
 import { SuiteCategoriesModule } from '../suite-categories/suite-categories.module';
 import { SuitesModule } from '../suites/suites.module';
+import { UsersModule } from '../users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -32,6 +33,7 @@ import { AppService } from './app.service';
     SuitesModule,
     ProductTypesModule,
     ProductsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
