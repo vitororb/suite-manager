@@ -1,6 +1,6 @@
 import React from "react";
 
-type ButtonVariant = "primary" | "secondary" | "danger";
+type ButtonVariant = "primary" | "secondary";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
@@ -8,9 +8,8 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantMap = {
-  primary: "bg-white text-black hover:shadow-lg",
+  primary: "bg-primary text-white hover:shadow-lg",
   secondary: "border border-gray-600/30 hover:bg-gray-400/10 text-white",
-  danger: "bg-red-500 hover:bg-red-600 text-white",
 };
 
 export const Button = ({
