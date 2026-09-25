@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BedDouble,
   ChartNoAxesCombined,
@@ -7,6 +9,8 @@ import {
   Settings,
   UserCog,
 } from "lucide-react";
+import { useState } from "react";
+import { ModalLogout } from "../../ModalLogout";
 import { MenuItem } from "./MenuItem";
 
 type SidebarProps = {};
@@ -45,22 +49,29 @@ const menuItems = [
 ];
 
 export const Sidebar = ({}: SidebarProps) => {
+  const [isModalLogoutOpen, setIsModalLogoutOpen] = useState(false);
+
   return (
-    <aside className="w-10 h-full flex items-center justify-between flex-col py-2">
-      <div className="flex flex-col gap-2 items-center">
-        {/* <PanelRightClose /> */}
+    <>
+      <aside className="w-11 flex items-center justify-between flex-col py-2 shrink-0 bg-foreground border-r border-white/10">
+        <div className="flex flex-col gap-2">
+          {menuItems.map((menu) => (
+            <MenuItem
+              key={menu.label}
+              icon={menu.icon}
+              label={menu.label}
+              route={menu.route}
+            />
+          ))}
+        </div>
 
-        {menuItems.map((menu) => (
-          <MenuItem
-            key={menu.label}
-            icon={menu.icon}
-            label={menu.label}
-            route={menu.route}
-          />
-        ))}
-      </div>
+        <MenuItem icon={<LogOut size={20} />} label="Sair" route="/login" />
+      </aside>
 
-      <MenuItem icon={<LogOut size={20} />} label="Sair" route="/login" />
-    </aside>
+      <ModalLogout
+        isOpen={isModalLogoutOpen}
+        onClose={() => setIsModalLogoutOpen(false)}
+      />
+    </>
   );
 };

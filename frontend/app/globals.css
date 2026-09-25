@@ -2,15 +2,14 @@
 
 :root {
   /* Base */
-  --background: #111111;
-  --foreground: #ffffff;
+  --background: #0d0d0d;
+  --foreground: #111111;
 
   /* UI */
-  --primary: #ff00ff;
-  --secondary: #00ffff;
+  --primary: #e92025;
+  --secondary: #911d1d;
   --muted: #888888;
   --accent: #ff8800;
-  --border: #444444;
 
   /* Feedback */
   --success: #00ff00;
@@ -19,15 +18,15 @@
   --info: #0000ff;
 
   /* Suite status */
-  --available: #00ff00;
-  --occupied: #0000ff;
-  --closing: #ff8800;
-  --checking: #ffff00;
-  --dirty: #ff00ff;
-  --cleaning: #00ffff;
-  --housekeeping: #ff8800;
-  --maintenance: #888888;
-  --blocked: #ff0000;
+  --available: #059669;
+  --occupied: #c53030;
+  --closing: #fde68a;
+  --checking: #ca8a04;
+  --dirty: #ff6f00;
+  --cleaning: #2563eb;
+  --housekeeping: #6b21a8;
+  --maintenance: #4b5563;
+  --blocked: #6b7280;
 }
 
 @theme inline {
@@ -38,7 +37,6 @@
   --color-secondary: var(--secondary);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-border: var(--border);
 
   --color-success: var(--success);
   --color-warning: var(--warning);
@@ -61,6 +59,6 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
 }

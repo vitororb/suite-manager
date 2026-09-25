@@ -15,16 +15,20 @@ export const MenuItem = ({ icon, label, route }: MenuItemProps) => {
 
   return (
     <button
-      className={`relative inline-block p-1.5 rounded-md hover:bg-[#3D3D3D] text-gray-500 hover:text-white hover:cursor-pointer
-          ${pathname === route ? "bg-[#3D3D3D] text-white" : ""}`}
+      className={`relative w-8 h-8 flex items-center justify-center rounded-sm hover:text-white hover:cursor-pointer
+          ${pathname === route ? "bg-white/5 border border-white/10 text-white" : ""}`}
       onClick={() => redirect(route)}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
       {icon}
 
+      {pathname === route && (
+        <span className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r w-0.5 h-4 bg-primary" />
+      )}
+
       {isVisible && (
-        <div className="absolute bg-[#3D3D3D] text-xs text-white px-3 font-medium py-1.5 rounded-md shadow-lg whitespace-nowrap top-1/2 transform -translate-y-1/2 left-full ml-1">
+        <div className="absolute bg-foreground/90 border-white/10 border text-xs text-white px-3 font-medium py-1.5 rounded-md shadow-lg whitespace-nowrap top-1/2 transform -translate-y-1/2 left-full ml-1">
           {label}
         </div>
       )}
